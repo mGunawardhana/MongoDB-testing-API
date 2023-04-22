@@ -16,7 +16,9 @@ const UserSchema = new Schema(
       required: true,
     },
   },
+
+  //timestamp true kare apita ewage updated date ekak tyaganna ppuluwan nisa
   { timestamps: true }
-); //timestamp true kare apita ewage updated date ekak tyaganna ppuluwan nisa
+);
 
 export const User = model<IUser>("User", UserSchema);
