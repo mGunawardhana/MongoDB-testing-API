@@ -25,5 +25,3 @@ db.connect(process.env.MONGO_DB_URL!)
 // app.listen(4000, () => {
 //     console.log("Hello their ! ");
 // });
-
-//mongodb+srv://root:<1234>@testcluster.1sdqczd.mongodb.net/?retryWrites=true&w=majority
