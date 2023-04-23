@@ -21,6 +21,11 @@ export default class PostController {
   ): Promise<Response> => {
     return res;
   };
-    
-    
+
+  deletePost: RequestHandler = async (
+    req: Request,
+    res: Response
+  ): Promise<Response> => {
+    return res;
+  };
 }
