@@ -5,7 +5,7 @@ export interface ITag extends Document {
   text: string;
 }
 
-const TagsSchema = new Schema(
+const TagSchema = new Schema(
   {
     text: {
       type: String,
@@ -15,4 +15,4 @@ const TagsSchema = new Schema(
   { timestamps: true }
 );
 
-export const Tag = model<ITag>("Tag", TagsSchema);
+export const Tag = model<ITag>("Tag", TagSchema);
