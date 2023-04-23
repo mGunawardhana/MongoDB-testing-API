@@ -1,3 +1,4 @@
+import { json } from "body-parser";
 //
 
 import { config } from "dotenv";
@@ -5,11 +6,25 @@ import { config } from "dotenv";
 config();
 
 // import { log } from "connect";
-import express from "express";
+import express, { Request, Response } from "express";
+import routes from "./routes";
 import db from "mongoose";
+
+import { urlencoded } from "body-parser";
+import { error } from "console";
 
 //create express app
 const app = express();
+
+app.use(json());
+
+app.use(urlencoded({ extended: true }));
+
+app.use("/", routes);
+
+app.use((error: Error, req: Request, res: Response) => {
+  res.status(500).json({ message: error.message });
+});
 
 db.connect(process.env.MONGO_DB_URL!)
   .then(() => {

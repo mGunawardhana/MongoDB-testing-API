@@ -9,7 +9,7 @@ export default class UserRoutes {
     this.configRoutes();
   }
 
-  private configRoutes = () => {
+    private configRoutes = () => {
     this.router.post("/", this.userController.createUser);
     this.router.post("/sign-in", this.userController.signIn);
   };
