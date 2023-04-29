@@ -29,7 +29,7 @@ app.use((error: Error, req: Request, res: Response) => {
 db.connect(process.env.MONGO_DB_URL!)
   .then(() => {
     app.listen(process.env.PORT, () => {
-      console.log("Database Connected !");
+      console.log("Database Connected ! PORT num -> "+`${process.env.PORT}`);
     });
   })
   .catch(() => {
