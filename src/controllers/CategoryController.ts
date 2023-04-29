@@ -7,11 +7,21 @@ export default class CategoryController {
         res: Response
     ): Promise<Response> => {
         try {
-            let category = new Category(req.body);
-            let newCategory = await category.save();
-            return res
-                .status(200)
-                .json({message: "New category added!", responseDate: newCategory});
+            const {categoryName} = req.body;
+            let category = await Category.findOne({categoryName: categoryName});
+            // let newCategory = null;
+            if (!category) {
+                category = new Category({categoryName: categoryName});
+                category = await category.save();
+                return res
+                    .status(200)
+                    .json({message: "New category added!", responseDate: category});
+            }else{
+                return res.status(500).json({message: "Already exists !"});
+            }
+
+
+
         } catch (error: unknown) {
             if (error instanceof Error) {
                 return res.status(500).json({message: error.message});

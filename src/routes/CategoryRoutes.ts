@@ -14,9 +14,9 @@ export default class CategoryRoutes {
 
         this.router.get("/", this.categoryController.retrieveAllCategory);
 
-        this.router.put("/:id", this.categoryController.updateCategory);
+        this.router.put("/_id", this.categoryController.updateCategory);
 
-        this.router.delete("/id", this.categoryController.deleteCategory);
+        this.router.delete("/_id", this.categoryController.deleteCategory);
     };
 
     public getRouter = () => {
