@@ -30,7 +30,6 @@ export default class PostController {
 
             const tags = req.body.tags;
 
-            //TODO ----------------------------------------------------------
 
 
             if (tags.length > 0) {
@@ -47,7 +46,7 @@ export default class PostController {
             session.endSession();
 
             //?TODO:check here ....
-            return res.status(500).json({message: "unknown error occurred!"});
+            return res.status(200).json({responseData: newPost});
 
 
         } catch (error: unknown) {
@@ -55,9 +54,8 @@ export default class PostController {
                 try {
                     await session.abortTransaction()
                 } catch (e) {
-                    console.log("Error aborting")
+                    console.log(`Error aborting transaction:${e}`)
                 }
-                // return res.status(500).json({message: error.message});
             } else {
                 return res.status(500).json({message: "unknown error occurred!"});
             }
