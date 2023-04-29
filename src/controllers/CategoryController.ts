@@ -1,31 +1,88 @@
-import { Request, RequestHandler, Response } from "express";
+import {Request, RequestHandler, Response} from "express";
+import {Category} from "../models/Category";
 
 export default class CategoryController {
     createCategory: RequestHandler = async (
         req: Request,
         res: Response
     ): Promise<Response> => {
-        return res;
+        try {
+            let category = new Category(req.body);
+            let newCategory = await category.save();
+            return res
+                .status(200)
+                .json({message: "New category added!", responseDate: newCategory});
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                return res.status(500).json({message: error.message});
+            } else {
+                return res.status(500).json({message: "unknown error occurred!"});
+            }
+        }
+        // return res;
     };
 
     retrieveAllCategory: RequestHandler = async (
         req: Request,
         res: Response
     ): Promise<Response> => {
-        return res;
+        try {
+            let categories = await Category.find();
+            return res
+                .status(200)
+                .json({message: "load categories!", responseDate: categories});
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                return res.status(500).json({message: error.message});
+            } else {
+                return res.status(500).json({message: "unknown error occurred!"});
+            }
+        }
+        // return res;
     };
 
     updateCategory: RequestHandler = async (
         req: Request,
         res: Response
     ): Promise<Response> => {
-        return res;
+        try {
+            const {id} = req.params;
+
+            let updatedCategory = await Category.findByIdAndUpdate(id, req.body, {new: true});
+            //metana illana resp eka aluten illana eka denawa new true karama
+            return res
+                .status(200)
+                .json({message: "New category Updated!", responseDate: updatedCategory});
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                return res.status(500).json({message: error.message});
+            } else {
+                return res.status(500).json({message: "unknown error occurred!"});
+            }
+        }
+
+
+        // return res;
     };
 
     deleteCategory: RequestHandler = async (
         req: Request,
         res: Response
     ): Promise<Response> => {
-        return res;
+        try {
+            const {id} = req.params;
+            let isDeleted = await Category.findByIdAndDelete(id);
+            if (!isDeleted) {
+                throw new Error("Failed to delete Category!")
+            }
+            return res.status(200).json({message: "Category deleted !", responseData: isDeleted})
+
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                return res.status(500).json({message: error.message});
+            } else {
+                return res.status(500).json({message: "unknown error occurred!"});
+            }
+        }
     };
 }
